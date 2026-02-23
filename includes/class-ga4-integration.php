@@ -18,27 +18,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 class ALLMT_GA4_Integration {
 
     /**
-     * Measurement ID
-     *
-     * @var string
-     */
-    private $measurement_id;
-
-    /**
-     * API Secret
-     *
-     * @var string
-     */
-    private $api_secret;
-
-    /**
      * Constructor
      */
     public function __construct() {
-        $this->measurement_id = get_option( 'allmt_ga4_measurement_id', '' );
-        $this->api_secret     = get_option( 'allmt_ga4_api_secret', '' );
-
-        add_action( 'allmt_bot_detected', array( $this, 'send_bot_event' ), 10, 2 );
+        add_action( 'allmt_high_confidence_bot_detected', array( $this, 'send_bot_event' ), 10, 2 );
     }
 
     /**
@@ -49,33 +32,32 @@ class ALLMT_GA4_Integration {
      * @return void
      */
     public function send_bot_event( string $session_id, array $classification ): void {
-        if ( empty( $this->measurement_id ) || empty( $this->api_secret ) ) {
+        $measurement_id = get_option( 'allmt_ga4_measurement_id', '' );
+        $api_secret     = get_option( 'allmt_ga4_api_secret', '' );
+
+        if ( empty( $measurement_id ) || empty( $api_secret ) ) {
             return;
         }
 
-        $event_data = array(
+        $url = "https://www.google-analytics.com/mp/collect?measurement_id={$measurement_id}&api_secret={$api_secret}";
+
+        $payload = array(
             'client_id' => $session_id,
             'events'    => array(
                 array(
-                    'name'   => 'ai_bot_detected',
+                    'name'   => 'bot_detected',
                     'params' => array(
-                        'bot_category'       => $classification['category'] ?? 'unknown',
-                        'confidence_score'   => $classification['confidence'] ?? 0,
-                        'detection_method'   => $classification['method'] ?? 'unknown',
-                        'bot_probability'    => $classification['bot_probability'] ?? 0,
+                        'bot_category'    => $classification['category'] ?? 'unknown',
+                        'bot_confidence'  => $classification['confidence'] ?? 0,
+                        'bot_method'      => $classification['method'] ?? 'unknown',
+                        'session_id'      => $session_id,
                     ),
                 ),
             ),
         );
 
-        $url = sprintf(
-            'https://www.google-analytics.com/mp/collect?measurement_id=%s&api_secret=%s',
-            $this->measurement_id,
-            $this->api_secret
-        );
-
         wp_remote_post( $url, array(
-            'body'    => wp_json_encode( $event_data ),
+            'body'    => wp_json_encode( $payload ),
             'headers' => array( 'Content-Type' => 'application/json' ),
         ) );
     }

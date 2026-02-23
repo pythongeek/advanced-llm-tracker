@@ -492,7 +492,7 @@ class ALLMT_Privacy {
         $sessions_table = $wpdb->prefix . 'allmt_sessions';
         $sessions       = $wpdb->get_results(
             $wpdb->prepare(
-                "SELECT * FROM {$sessions_table} WHERE wp_user_id = %d",
+                "SELECT * FROM `{$sessions_table}` WHERE wp_user_id = %d",
                 $user->ID
             ),
             ARRAY_A
@@ -521,7 +521,7 @@ class ALLMT_Privacy {
         // Get session IDs for this user
         $session_ids = $wpdb->get_col(
             $wpdb->prepare(
-                "SELECT session_id FROM {$sessions_table} WHERE wp_user_id = %d",
+                "SELECT session_id FROM `{$sessions_table}` WHERE wp_user_id = %d",
                 $user->ID
             )
         );
@@ -536,7 +536,7 @@ class ALLMT_Privacy {
         $placeholders = implode( ',', array_fill( 0, count( $session_ids ), '%s' ) );
         $deleted += $wpdb->query(
             $wpdb->prepare(
-                "DELETE FROM {$events_table} WHERE session_id IN ({$placeholders})",
+                "DELETE FROM `{$events_table}` WHERE session_id IN ({$placeholders})",
                 ...$session_ids
             )
         );
@@ -544,7 +544,7 @@ class ALLMT_Privacy {
         // Delete sessions
         $deleted += $wpdb->query(
             $wpdb->prepare(
-                "DELETE FROM {$sessions_table} WHERE wp_user_id = %d",
+                "DELETE FROM `{$sessions_table}` WHERE wp_user_id = %d",
                 $user->ID
             )
         );

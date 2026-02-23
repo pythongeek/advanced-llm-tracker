@@ -70,7 +70,7 @@ class ALLMT_Feature_Extractor {
 
         $this->session_data = $wpdb->get_row(
             $wpdb->prepare(
-                "SELECT * FROM {$sessions_table} WHERE session_id = %s",
+                "SELECT * FROM `{$sessions_table}` WHERE session_id = %s",
                 $this->session_id
             ),
             ARRAY_A
@@ -79,7 +79,7 @@ class ALLMT_Feature_Extractor {
         if ( $this->session_data ) {
             $this->events = $wpdb->get_results(
                 $wpdb->prepare(
-                    "SELECT * FROM {$events_table} WHERE session_id = %s ORDER BY timestamp ASC",
+                    "SELECT * FROM `{$events_table}` WHERE session_id = %s ORDER BY timestamp ASC",
                     $this->session_id
                 ),
                 ARRAY_A

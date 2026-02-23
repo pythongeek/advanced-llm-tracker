@@ -66,8 +66,8 @@ class ALLMT_Plugin {
      * @return void
      */
     private function setup(): void {
-        // Load text domain for internationalization
-        add_action( 'init', array( $this, 'load_textdomain' ) );
+        // Load text domain for internationalization - at init hook
+        add_action( 'init', array( $this, 'load_textdomain' ), 1 );
 
         // Add custom cron schedules
         add_filter( 'cron_schedules', array( $this, 'add_cron_schedules' ) );
@@ -152,8 +152,8 @@ class ALLMT_Plugin {
         // Initialize tracker
         $this->components['tracker'] = new ALLMT_Tracker();
 
-        // Initialize feature extractor
-        $this->components['feature_extractor'] = new ALLMT_Feature_Extractor();
+        // NOTE: ALLMT_Feature_Extractor is instantiated per-session by the classifier
+        // Do NOT instantiate it here without a session_id parameter
 
         // Initialize classifier
         $this->components['classifier'] = new ALLMT_Classifier();
@@ -558,8 +558,9 @@ class ALLMT_Plugin {
 
         foreach ( $tables as $table ) {
             $table_name = $wpdb->prefix . 'allmt_' . $table;
+            // Use $wpdb->query with properly prepared statement
             $wpdb->query( $wpdb->prepare(
-                "DELETE FROM {$table_name} WHERE created_at < %s",
+                "DELETE FROM `{$table_name}` WHERE created_at < %s",
                 $cutoff_date
             ) );
         }
@@ -588,9 +589,10 @@ class ALLMT_Plugin {
 
         $table_name = $wpdb->prefix . 'allmt_blocklist';
 
-        $wpdb->query(
-            "DELETE FROM {$table_name} WHERE expires_at < NOW() AND is_active = 1"
-        );
+        // Use $wpdb->query with properly prepared statement
+        $wpdb->query( $wpdb->prepare(
+            "DELETE FROM `{$table_name}` WHERE expires_at < NOW() AND is_active = 1"
+        ) );
     }
 
     /**

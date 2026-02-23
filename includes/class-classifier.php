@@ -90,7 +90,7 @@ class ALLMT_Classifier {
 
         $session = $wpdb->get_row(
             $wpdb->prepare(
-                "SELECT * FROM {$sessions_table} WHERE session_id = %s",
+                "SELECT * FROM `{$sessions_table}` WHERE session_id = %s",
                 $session_id
             ),
             ARRAY_A
@@ -102,7 +102,7 @@ class ALLMT_Classifier {
 
         // Check user agent against known bots
         $user_agent = $session['user_agent'] ?? '';
-        $known_bots = $wpdb->get_results( "SELECT * FROM {$known_bots_table} WHERE is_active = 1", ARRAY_A );
+        $known_bots = $wpdb->get_results( "SELECT * FROM `{$known_bots_table}` WHERE is_active = 1", ARRAY_A );
 
         foreach ( $known_bots as $bot ) {
             $patterns = json_decode( $bot['user_agent_patterns'] ?? '[]', true );
@@ -517,7 +517,7 @@ class ALLMT_Classifier {
         // Check if classification already exists
         $existing = $wpdb->get_var(
             $wpdb->prepare(
-                "SELECT id FROM {$classifications_table} WHERE session_id = %s",
+                "SELECT id FROM `{$classifications_table}` WHERE session_id = %s",
                 $session_id
             )
         );

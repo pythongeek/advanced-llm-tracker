@@ -253,7 +253,7 @@ class ALLMT_Response_Engine {
         // Get session data
         $session = $wpdb->get_row(
             $wpdb->prepare(
-                "SELECT * FROM {$sessions_table} WHERE session_id = %s",
+                "SELECT * FROM `{$sessions_table}` WHERE session_id = %s",
                 $session_id
             ),
             ARRAY_A
@@ -352,7 +352,7 @@ class ALLMT_Response_Engine {
         // Check session block
         $blocked = $wpdb->get_var(
             $wpdb->prepare(
-                "SELECT id FROM {$blocklist_table} 
+                "SELECT id FROM `{$blocklist_table}` 
                 WHERE (session_id = %s OR ip_address = %s) 
                 AND is_active = 1 
                 AND expires_at > NOW()",
@@ -365,7 +365,7 @@ class ALLMT_Response_Engine {
             // Update hit count
             $wpdb->query(
                 $wpdb->prepare(
-                    "UPDATE {$blocklist_table} 
+                    "UPDATE `{$blocklist_table}` 
                     SET hit_count = hit_count + 1, last_hit_at = NOW() 
                     WHERE id = %d",
                     $blocked
