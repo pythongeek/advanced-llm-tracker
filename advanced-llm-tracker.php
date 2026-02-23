@@ -28,14 +28,11 @@ define( 'ALLMT_BASENAME', plugin_basename( __FILE__ ) );
 define( 'ALLMT_MIN_PHP', '8.1' );
 define( 'ALLMT_MIN_WP', '6.6' );
 
-// Check PHP version
+// Check PHP version - use plain strings to avoid textdomain loading issues
 if ( version_compare( PHP_VERSION, ALLMT_MIN_PHP, '<' ) ) {
     add_action( 'admin_notices', function() {
         echo '<div class="error"><p>' . 
-             esc_html( sprintf( 
-                 __( 'Advanced LLM Tracker requires PHP %s or higher. Please upgrade your PHP version.', 'advanced-llm-tracker' ), 
-                 ALLMT_MIN_PHP 
-             ) ) . 
+             esc_html( 'Advanced LLM Tracker requires PHP ' . ALLMT_MIN_PHP . ' or higher. Please upgrade your PHP version.' ) . 
              '</p></div>';
     } );
     return;
@@ -58,7 +55,7 @@ register_deactivation_hook( __FILE__, array( 'ALLMT_Installer', 'deactivate' ) )
 // Uninstall hook
 register_uninstall_hook( __FILE__, array( 'ALLMT_Installer', 'uninstall' ) );
 
-// Initialize plugin
+// Initialize plugin - load textdomain at init, not before
 add_action( 'plugins_loaded', array( 'ALLMT_Plugin', 'init' ), 10 );
 
 // Early initialization for tracking (before theme loads)

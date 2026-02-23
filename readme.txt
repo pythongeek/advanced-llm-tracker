@@ -1,6 +1,6 @@
 === Advanced LLM Tracker ===
 Contributors: yourname
-Tags: ai, llm, bot-detection, security, machine-learning, gptbot, claudebot
+Tags: ai, bot detection, llm, chatgpt, claude, security, tracking, gdpr, privacy
 Requires at least: 6.6
 Tested up to: 6.7
 Requires PHP: 8.1
@@ -8,132 +8,150 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Next-generation AI/LLM bot detection for WordPress using behavioral machine learning. Detects GPTBot, ClaudeBot, and sophisticated AI crawlers.
+Next-gen AI/LLM bot detection with behavioral ML. Detects GPTBot, ClaudeBot, and sophisticated AI crawlers using machine learning.
 
 == Description ==
 
-Advanced LLM Tracker is a next-generation WordPress plugin that detects AI and LLM (Large Language Model) bots using behavioral machine learning techniques. Unlike traditional rule-based detection that relies on user-agent strings, our plugin analyzes visitor behavior patterns to identify both known and unknown AI systems.
+Advanced LLM Tracker is a privacy-first WordPress plugin that detects and tracks AI/LLM bot traffic on your website. Using behavioral analysis and machine learning, it can distinguish between human visitors and AI systems like GPTBot, ClaudeBot, and other sophisticated crawlers.
 
-= Key Features =
+= Features =
 
-**Machine Learning-Based Detection**
-- Multi-layered behavioral analysis
-- Heuristic scoring with 40+ features
-- Support for cloud ML inference (Pro)
-- Ensemble classification methods
+**Bot Detection**
+- Detects known AI bots (GPTBot, ClaudeBot, Google-Extended, PerplexityBot, etc.)
+- Behavioral analysis using mouse tracking, scroll patterns, and interaction data
+- Machine learning classification with confidence scores
+- Real-time session classification
 
-**Comprehensive Tracking**
-- Mouse movement analysis
-- Scroll behavior patterns
-- DOM interaction tracking
-- Session-level feature extraction
-
-**Privacy-First Design**
-- GDPR/CCPA compliant
+**Privacy First**
+- GDPR compliant with built-in consent management
 - IP address anonymization
-- Differential privacy noise injection
-- Granular consent management
+- Differential privacy for coordinate data
+- Configurable data retention policies
+- WordPress Privacy API integration
 
-**Automated Responses**
-- Dynamic rate limiting
-- JavaScript challenges
-- Graduated blocking system
-- Tarpitting for aggressive scrapers
+**Response Actions**
+- Allow, monitor, challenge, or block detected bots
+- Rate limiting per session
+- JavaScript challenges for suspicious traffic
+- Automatic blocking for high-confidence bot detection
 
-**Real-time Alerts**
-- Email notifications
-- Slack integration
-- Multi-severity alert levels
-- Custom alert rules
+**Analytics Dashboard**
+- Real-time traffic monitoring
+- Bot vs human traffic statistics
+- Session details and event logs
+- Alert notifications (email and Slack)
 
-**Analytics & Reporting**
-- Live traffic monitoring
-- Bot category classification
-- Confidence scoring
-- Historical trend analysis
+**Integrations**
+- Google Analytics 4 event tracking
+- Slack webhook notifications
+- WordPress REST API
+- Third-party consent plugin support (CookieYes, Complianz, etc.)
 
-= Detected Bot Categories =
+= Bot Categories =
 
-- **Training Data Harvesters**: GPTBot, ClaudeBot, Meta-ExternalAgent, Common Crawl
-- **Search Indexers**: OAI-SearchBot, PerplexityBot, Bingbot-AI
-- **Research Aggregators**: ChatGPT-User, academic crawlers
-- **Malicious Scrapers**: Content thieves, competitive espionage
+The plugin identifies and categorizes bots into:
 
-= Integrations =
+* **Training Harvesters** - Bots collecting data for AI training (GPTBot, ClaudeBot, etc.)
+* **Search Indexers** - AI-powered search crawlers (PerplexityBot, etc.)
+* **Research Aggregators** - Academic and research bots
+* **Malicious Scrapers** - Aggressive, unwanted crawlers
+* **Unknown Bots** - Unclassified bot traffic
 
-- Google Analytics 4
-- Slack notifications
-- WordPress Privacy API
-- WordPress Consent API
-- CDN/WAF ready (Cloudflare, AWS, Fastly)
+= Requirements =
+
+* WordPress 6.6 or higher
+* PHP 8.1 or higher
+* MySQL 5.7 or higher (or MariaDB 10.3+)
 
 == Installation ==
 
-1. Upload the plugin files to `/wp-content/plugins/advanced-llm-tracker`
+1. Upload the plugin files to `/wp-content/plugins/advanced-llm-tracker/`
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to 'LLM Tracker' > 'Settings' to configure the plugin
-4. Enable tracking and set your preferences
+4. The plugin will automatically start tracking and detecting AI bot traffic
 
 == Frequently Asked Questions ==
 
 = Does this plugin slow down my website? =
 
-No. The JavaScript SDK is optimized for performance (<15KB gzipped), loads asynchronously, and uses event batching to minimize network requests. Core Web Vitals are preserved.
+No. The plugin is designed for performance with:
+- Asynchronous JavaScript loading
+- Configurable sampling rates
+- Efficient database queries with proper indexing
+- Optional caching layer
 
 = Is this plugin GDPR compliant? =
 
-Yes. The plugin includes built-in consent management, IP anonymization, differential privacy, and data retention controls. All data processing can be configured to comply with GDPR requirements.
+Yes. The plugin includes:
+- Built-in consent banner
+- IP address anonymization
+- Configurable data retention
+- WordPress Privacy API integration for data export/erasure
 
-= Can I use this with caching plugins? =
+= What bots can it detect? =
 
-Yes. The plugin is compatible with all major caching plugins including WP Rocket, W3 Total Cache, and LiteSpeed Cache.
+The plugin can detect:
+- OpenAI GPTBot
+- Anthropic ClaudeBot
+- Google-Extended (Bard/AI training)
+- CommonCrawl CCBot
+- PerplexityBot
+- ChatGPT-User agent
+- Meta-ExternalAgent
+- Plus many more via pattern matching
 
-= Does it work with CDNs? =
+= Can I customize the response to detected bots? =
 
-Yes. The plugin is CDN-compatible and can integrate with Cloudflare, AWS CloudFront, and other major CDN providers.
+Yes. You can configure different responses based on confidence levels:
+- Allow - Let the bot access your site
+- Monitor - Track but allow access
+- Challenge - Present a JavaScript challenge
+- Block - Deny access
 
-= What PHP version is required? =
+= Does it work with caching plugins? =
 
-PHP 8.1 or higher is required for optimal performance and security.
+Yes. The plugin is compatible with popular caching plugins like WP Rocket, W3 Total Cache, and LiteSpeed Cache.
 
 == Screenshots ==
 
-1. Dashboard with real-time statistics
+1. Dashboard with traffic statistics
 2. Live traffic monitoring
 3. Session details and classification
-4. Alert management
-5. Settings page
-6. Privacy configuration
+4. Settings page
+5. Alerts and notifications
 
 == Changelog ==
 
 = 1.0.0 =
 * Initial release
-* Machine learning-based bot detection
-* Behavioral tracking with JavaScript SDK
-* Heuristic classification engine
-* Privacy-compliant consent management
-* Real-time alerting system
-* GA4 and Slack integrations
-* REST API for data access
+* Bot detection with behavioral analysis
+* Privacy-first design with GDPR compliance
+* Admin dashboard with real-time stats
+* Alert notifications (email and Slack)
+* GA4 integration
 
 == Upgrade Notice ==
 
 = 1.0.0 =
-Initial release of Advanced LLM Tracker.
+Initial release. No upgrade necessary.
 
 == Privacy Policy ==
 
-Advanced LLM Tracker collects anonymized behavioral data to detect AI bot traffic. This includes:
+Advanced LLM Tracker collects the following data:
 
-- Page views and navigation patterns
-- Scroll depth and velocity
-- Mouse movement patterns (when consent is given)
-- Session duration and engagement metrics
+* **Session Information** - Anonymous session ID, hashed IP address, user agent
+* **Behavioral Data** - Mouse movements, scroll patterns, click events (with noise added for privacy)
+* **Page Views** - URLs visited during the session
 
-All IP addresses are hashed for privacy. No personally identifiable information is stored. Data retention is configurable (default: 90 days).
+All data is stored in your WordPress database and is never shared with third parties (unless you enable optional integrations like GA4 or Slack).
 
-== Additional Info ==
+Users can:
+- Opt-out via the consent banner
+- Request data export via WordPress Privacy tools
+- Request data deletion via WordPress Privacy tools
 
-For more information, documentation, and support, please visit:
-https://yourwebsite.com/advanced-llm-tracker
+== Credits ==
+
+* Chart.js for data visualization
+* WordPress REST API for backend communication
+* Inspired by the need for better AI bot detection in the age of LLMs
