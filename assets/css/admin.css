@@ -1,0 +1,252 @@
+/**
+ * Admin styles for Advanced LLM Tracker
+ */
+
+/* Dashboard styles */
+.allmt-dashboard {
+    max-width: 1200px;
+    margin: 20px 0;
+}
+
+.allmt-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.allmt-stat-card {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 20px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+.allmt-stat-card h3 {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: #646970;
+    text-transform: uppercase;
+}
+
+.allmt-stat-value {
+    font-size: 32px;
+    font-weight: 600;
+    color: #1d2327;
+    margin: 0;
+}
+
+.allmt-stat-change {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.allmt-stat-change.positive {
+    color: #00a32a;
+}
+
+.allmt-stat-change.negative {
+    color: #d63638;
+}
+
+/* Chart container */
+.allmt-chart-container {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.allmt-chart-container h2 {
+    margin: 0 0 20px;
+    font-size: 16px;
+}
+
+/* Tables */
+.allmt-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.allmt-table th,
+.allmt-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #c3c4c7;
+}
+
+.allmt-table th {
+    background: #f0f0f1;
+    font-weight: 600;
+}
+
+.allmt-table tr:hover {
+    background: #f6f7f7;
+}
+
+/* Status badges */
+.allmt-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.allmt-badge-bot {
+    background: #d63638;
+    color: #fff;
+}
+
+.allmt-badge-human {
+    background: #00a32a;
+    color: #fff;
+}
+
+.allmt-badge-unknown {
+    background: #dba617;
+    color: #fff;
+}
+
+.allmt-badge-info {
+    background: #2271b1;
+    color: #fff;
+}
+
+/* Severity badges */
+.allmt-severity-critical {
+    background: #d63638;
+    color: #fff;
+}
+
+.allmt-severity-high {
+    background: #d54e21;
+    color: #fff;
+}
+
+.allmt-severity-warning {
+    background: #dba617;
+    color: #fff;
+}
+
+.allmt-severity-info {
+    background: #2271b1;
+    color: #fff;
+}
+
+/* Loading state */
+.allmt-loading {
+    text-align: center;
+    padding: 40px;
+}
+
+.allmt-loading-spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f0f0f1;
+    border-top-color: #2271b1;
+    border-radius: 50%;
+    animation: allmt-spin 1s linear infinite;
+}
+
+@keyframes allmt-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Alert styles */
+.allmt-alert {
+    padding: 12px 16px;
+    border-left: 4px solid;
+    margin-bottom: 16px;
+    background: #fff;
+}
+
+.allmt-alert-success {
+    border-left-color: #00a32a;
+}
+
+.allmt-alert-error {
+    border-left-color: #d63638;
+}
+
+.allmt-alert-warning {
+    border-left-color: #dba617;
+}
+
+.allmt-alert-info {
+    border-left-color: #2271b1;
+}
+
+/* Form styles */
+.allmt-form-row {
+    margin-bottom: 20px;
+}
+
+.allmt-form-row label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.allmt-form-row input[type="text"],
+.allmt-form-row input[type="email"],
+.allmt-form-row input[type="number"],
+.allmt-form-row input[type="url"],
+.allmt-form-row select,
+.allmt-form-row textarea {
+    width: 100%;
+    max-width: 400px;
+}
+
+.allmt-form-row .description {
+    margin-top: 5px;
+    color: #646970;
+    font-size: 12px;
+}
+
+/* Tab navigation */
+.allmt-tabs {
+    border-bottom: 1px solid #c3c4c7;
+    margin-bottom: 20px;
+}
+
+.allmt-tabs a {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #646970;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+}
+
+.allmt-tabs a:hover {
+    color: #1d2327;
+}
+
+.allmt-tabs a.active {
+    color: #2271b1;
+    border-bottom-color: #2271b1;
+}
+
+/* Responsive */
+@media screen and (max-width: 782px) {
+    .allmt-stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .allmt-table {
+        font-size: 12px;
+    }
+    
+    .allmt-table th,
+    .allmt-table td {
+        padding: 8px;
+    }
+}
